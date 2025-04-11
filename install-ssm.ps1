@@ -1,7 +1,9 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13
-$queryParams = $env:SSM_PARAMS
-$apiKey = $env:API_KEY
-$url = $env:API_URL
+param (
+    [string]$queryParams,
+    [string]$url,
+    [string]$apiKey
+)
 
 $response = Invoke-RestMethod -Uri "$url/getactivation" -Headers @{ "x-api-key" = $apiKey } -Method Post
 $code = $response | Select -ExpandProperty ActivationCode
